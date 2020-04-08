@@ -9,4 +9,4 @@ from phy import IPlugin
 
 class MyPlugin(IPlugin):
     def attach_to_controller(self, controller):
-        print("Hey Julie!")
+        print("loading data ...")
