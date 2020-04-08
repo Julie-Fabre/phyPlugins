@@ -14,5 +14,5 @@ class removeUselessColumnsPlugin(IPlugin):
     def attach_to_controller(self, controller):
         @connect
         def on_controller_ready(sender):
-            controller.supervisor.columns = ['id', 'n_spikes', 'depth', 'fr', 'amp', 'Fp', 'spatDeK', '%missing']
+            controller.supervisor.columns = ['id', 'n_spikes', 'depth', 'fracRPV', 'fr', 'amp', 'Fp', 'spatDeK', '%missing']
 

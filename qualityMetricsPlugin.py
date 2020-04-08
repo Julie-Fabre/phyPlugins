@@ -20,15 +20,16 @@ class qualityMetricsPlugin(IPlugin):
         
         def fracRPV(cluster_id):
             t = controller.get_spike_times(cluster_id).data #get spike times 
-            rpv = np.size(sum(np.diff(t) <= 0.002) - sum(np.diff(t) <= 0.0005)) #get isi inferior to 2ms and superior to 0.5 ms (duplicate spikes)
-            return rpv/len(t) if len(t) >= 2 else 0
+            numr = sum((np.diff(t) <= 0.002)) - sum((np.diff(t) <= 0.0005))
+            #rpv = len(np.array(numr)) #get isi inferior to 2ms and superior to 0.5 ms (duplicate spikes)
+            return numr/t*100 if len(t) >= 2 else 0
         
         def falsePos(cluster_id):
             t = controller.get_spike_times(cluster_id).data #get spike times
             N = len(t)
             T = np.max(t)/controller.model.sample_rate 
             a = 2*(0.002-0.0005) * N / T
-            rpv = np.size(sum(np.diff(t) <= 0.002) - sum(np.diff(t) <= 0.0005))            
+            rpv = sum(np.diff(t) <= 0.002) - sum(np.diff(t) <= 0.0005)            
             if rpv== 0:
                 Fp = 0
             else:
