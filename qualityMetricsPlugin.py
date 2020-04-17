@@ -40,7 +40,7 @@ class qualityMetricsPlugin(IPlugin):
                     Fp = Fp
                 else:
                     Fp = float("NaN");
-            return Fp
+            return Fp*100
 
         def spatialDecay(cluster_id):
             wv = controller.model.get_template_waveforms(cluster_id)
@@ -49,62 +49,63 @@ class qualityMetricsPlugin(IPlugin):
             deK = [np.max(np.abs(troughs))/np.min(np.abs(troughs))]  #QQ do in order of chan distance
             return deK
 
-        def percSpikesMissing(cluster_id):
-            warnings.filterwarnings("ignore")
-            amp = controller.get_amplitudes(cluster_id)
-            num, bins = np.histogram(amp, bins=50)
+#this is slow and was giving bugs whne creating new clusters. more rudimentary method below instead
+#        def percSpikesMissing(cluster_id):
+#            warnings.filterwarnings("ignore")
+#            amp = controller.get_amplitudes(cluster_id)
+#            num, bins = np.histogram(amp, bins=50)
+#
+#            def gaussian(x, a, x0, sigma):
+#                return a * np.exp(-(x - x0) ** 2 / (2 * sigma ** 2))
+#
+#            def gaussian_cut(x, a, x0, sigma, xcut):
+#                g = a * np.exp(-(x - x0) ** 2 / (2 * sigma ** 2))
+#                g[x < xcut] = 0
+#                return g
+#
+#            mean_seed = bins[np.argmax(num)]  # mode of mean_seed
+#            bin_steps = np.diff(bins[:2])[0]
+#            x = bins[:-1] + bin_steps / 2
+#            next_low_bin = x[0] - bin_steps
+#            add_points = np.flipud(np.arange(next_low_bin,
+#                                             0, -bin_steps))
+#            x = np.append(add_points, x)
+#            num = np.append(np.zeros(len(add_points)), num)
+#
+#            p0 = (num.max(), mean_seed, 2 * amp.std(),
+#                  np.percentile(amp, 1))
+#            try:
+#                popt, pcov = opt.curve_fit(gaussian_cut, x, num, p0=p0,
+#                                           maxfev=10000)
+#                was_fit = True
+#            except:
+#                was_fit = False
+#                percent_missing_ndtr = float("NaN")
+#            if was_fit:
+##                n_fit = gaussian_cut(x, popt[0], popt[1],
+##                                     popt[2], popt[3])
+#                min_amplitude = popt[3]
+##                n_fit_no_cut = gaussian_cut(x, popt[0], popt[1],
+##                                            popt[2], 0)
+##                maxs = n_fit.max()
+#                # norm area calculated by fit parameters
+#                norm_area_ndtr = sp.ndtr((popt[1] - min_amplitude) /
+#                                         popt[2])
+#                percent_missing_ndtr = 100 * (1 - norm_area_ndtr)
+#            return percent_missing_ndtr
 
-            def gaussian(x, a, x0, sigma):
-                return a * np.exp(-(x - x0) ** 2 / (2 * sigma ** 2))
-
-            def gaussian_cut(x, a, x0, sigma, xcut):
-                g = a * np.exp(-(x - x0) ** 2 / (2 * sigma ** 2))
-                g[x < xcut] = 0
-                return g
-
-            mean_seed = bins[np.argmax(num)]  # mode of mean_seed
-            bin_steps = np.diff(bins[:2])[0]
-            x = bins[:-1] + bin_steps / 2
-            next_low_bin = x[0] - bin_steps
-            add_points = np.flipud(np.arange(next_low_bin,
-                                             0, -bin_steps))
-            x = np.append(add_points, x)
-            num = np.append(np.zeros(len(add_points)), num)
-
-            p0 = (num.max(), mean_seed, 2 * amp.std(),
-                  np.percentile(amp, 1))
-            try:
-                popt, pcov = opt.curve_fit(gaussian_cut, x, num, p0=p0,
-                                           maxfev=10000)
-                was_fit = True
-            except:
-                try:
-                    popt, pcov = opt.curve_fit(gaussian_cut, x, num,
-                                               p0=p0, maxfev=1000000)
-                    was_fit = True
-                except:
-                    was_fit = False
-                    percent_missing_ndtr = float("NaN")
-            if was_fit:
-#                n_fit = gaussian_cut(x, popt[0], popt[1],
-#                                     popt[2], popt[3])
-                min_amplitude = popt[3]
-#                n_fit_no_cut = gaussian_cut(x, popt[0], popt[1],
-#                                            popt[2], 0)
-#                maxs = n_fit.max()
-                # norm area calculated by fit parameters
-                norm_area_ndtr = sp.ndtr((popt[1] - min_amplitude) /
-                                         popt[2])
-                percent_missing_ndtr = 100 * (1 - norm_area_ndtr)
-            return percent_missing_ndtr
-
+#        def percSpikesMissing(cluster_id):
+#            amp = controller.get_amplitudes(cluster_id)
+#            num, bins = np.histogram(amp, bins=50)
+#            max(num)
+#            return percent_missing_ndtr
 
         # Use this dictionary to define custom cluster metrics.
         # We memcache the function so that cluster metrics are only computed once and saved
         # within the session, and also between sessions (the memcached values are also saved
         # on disk).
 
-        controller.cluster_metrics['fracRPV'] = controller.context.memcache(fracRPV)
-        controller.cluster_metrics['Fp'] = controller.context.memcache(falsePos)
+        controller.cluster_metrics['numRPV/numSpikes'] = controller.context.memcache(fracRPV)
+        controller.cluster_metrics['contamEstimate'] = controller.context.memcache(falsePos)
         controller.cluster_metrics['spatDeK'] = controller.context.memcache(spatialDecay)
-        controller.cluster_metrics['%missing'] = controller.context.memcache(percSpikesMissing)
+#        controller.cluster_metrics['%missing'] = controller.context.memcache(percSpikesMissing)

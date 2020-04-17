@@ -20,6 +20,6 @@ Copy the plugins to your .phy/plugins/ folder (usually located at C:/Users/You/.
 `c.Plugins.dirs = ['C:/Users/Julie/.phy/plugins/'] `
 
 
-`c.TemplateGUI.plugins = ['qualityMetricsPlugin', 'removeUselessColumnsPlugin', 'clusterViewStylingPlugin']`
+`c.TemplateGUI.plugins = ['MyPlugin', 'qualityMetricsPlugin', 'removeUselessColumnsPlugin', 'clusterViewStylingPlugin']`
 
 
