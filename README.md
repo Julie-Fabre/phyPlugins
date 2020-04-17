@@ -22,4 +22,4 @@ Copy the plugins to your .phy/plugins/ folder (usually located at C:/Users/You/.
 
 `c.TemplateGUI.plugins = ['MyPlugin', 'qualityMetricsPlugin', 'removeUselessColumnsPlugin', 'clusterViewStylingPlugin']`
 
-
+Based on wonderful examples in the phy documentation
