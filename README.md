@@ -1,5 +1,5 @@
 
-Plugins to:
+Plugins to select which columns to display in phy's Cluster view, change the labeling colors 
 
 - remove some columns in clusterview (this view become very cluttered if used in conjunction with [bombcell](https://github.com/Julie-Fabre/bombcell/)
   
