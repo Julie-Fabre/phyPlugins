@@ -30,4 +30,4 @@ c.TemplateGUI.plugins = ['MyPlugin', 'qualityMetricsPlugin', 'removeColumnsPlugi
 
 Select which columns you want to keep, by modifying the variable `controller.supervisor.columns` in `removeColumnsPlugins.py`
 
-Based on wonderful examples in the phy documentation. 
+Based on [wonderful examples](https://phy.readthedocs.io/en/latest/plugins/) in the phy documentation 
