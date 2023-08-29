@@ -36,7 +36,7 @@ controller.supervisor.columns = ['id', 'depth', 'fr', 'Amplitude', 'n_spikes', '
 
 To better see your manual curation labels, it can be useful to adjust the colors. The plugin `clusterViewStylingPlugin` defines which colors to use for the good, MUA and noise labels. 
 
-![clus_colors](https://github.com/Julie-Fabre/phyPlugins/assets/29582008/e4e4a651-dcb4-4477-a438-af39a3c1690b)
+![clus_colors](https://github.com/Julie-Fabre/phyPlugins/assets/29582008/964b4d56-09f1-44f4-9cb1-faef1f1a5781)
 
 ### Calculate and display quality metrics
 - _[not recommended: use [bombcell](https://github.com/Julie-Fabre/bombcell/) to output quality metrics instead] add some quality metrics in phy2's clusterview:_
