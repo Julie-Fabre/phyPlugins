@@ -6,7 +6,7 @@ Created on Mon Apr  6 14:28:30 2020
 """
 
 # import from plugins/cluster_view_styling.py
-"""Change mua color to yellow and noise to red for easy visualization."""
+"""Change mua color to yellow and noise to red for easy visualization. Slightly modified from an example here: https://phy.readthedocs.io/en/latest/plugins/"""
 
 from phy import IPlugin
 from phy.cluster.supervisor import ClusterView

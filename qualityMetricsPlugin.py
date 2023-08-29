@@ -20,12 +20,14 @@ class qualityMetricsPlugin(IPlugin):
 
         
         def fracRPV(cluster_id):
+            warnings.filterwarnings("ignore")
             t = controller.get_spike_times(cluster_id).data #get spike times 
             numr = sum((np.diff(t) <= 0.002)) - sum((np.diff(t) <= 0.0005))
             #rpv = len(np.array(numr)) #get isi inferior to 2ms and superior to 0.5 ms (duplicate spikes)
             return numr/len(t)*100 if len(t) >= 2 else 0
         
         def falsePos(cluster_id):
+            warnings.filterwarnings("ignore")
             t = controller.get_spike_times(cluster_id).data #get spike times
             N = len(t)
             T = np.max(t)/controller.model.sample_rate 
@@ -49,7 +51,7 @@ class qualityMetricsPlugin(IPlugin):
             deK = [np.max(np.abs(troughs))/np.min(np.abs(troughs))]  #QQ do in order of chan distance
             return deK
 
-#this is slow and was giving bugs whne creating new clusters. more rudimentary method below instead
+#this is slow and was giving bugs when creating new clusters. more rudimentary method above instead
 #        def percSpikesMissing(cluster_id):
 #            warnings.filterwarnings("ignore")
 #            amp = controller.get_amplitudes(cluster_id)
