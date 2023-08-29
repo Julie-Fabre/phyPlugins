@@ -20,12 +20,14 @@ Plugins to:
 Copy the plugins to your .phy/plugins/ folder (usually located at C:/Users/You/.phy/plugins/ for windows users, or ~/.phy for Linux users), and modify your phy_config file located in your .phy folder to add the following lines: 
 
 
-`c = get_config()`
+```
+c = get_config()
 
 
-`c.Plugins.dirs = ['C:/Users/Julie/.phy/plugins/'] `
+c.Plugins.dirs = ['location of you .phy/plugins/ folder] (e.g. ['C:/Users/Julie/.phy/plugins/']) 
 
 
-`c.TemplateGUI.plugins = ['MyPlugin', 'qualityMetricsPlugin', 'removeUselessColumnsPlugin', 'clusterViewStylingPlugin']`
+c.TemplateGUI.plugins = ['MyPlugin', 'qualityMetricsPlugin', 'removeUselessColumnsPlugin', 'clusterViewStylingPlugin']
+```
 
 Based on wonderful examples in the phy documentation. 
