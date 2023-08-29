@@ -22,7 +22,8 @@ class clusterViewStylingPlugin(IPlugin):
 
                 /* We change the text color. Many other CSS attributes can be changed,
                 such as background-color, the font weight, etc. */
-                color: green;
+                color: #2BBD28;
+                font-weight: bold;
             }
 
         """
@@ -33,7 +34,7 @@ class clusterViewStylingPlugin(IPlugin):
 
                 /* We change the text color. Many other CSS attributes can be changed,
                 such as background-color, the font weight, etc. */
-                color: yellow;
+                color: #9C874A;
             }
 
         """
@@ -44,7 +45,7 @@ class clusterViewStylingPlugin(IPlugin):
 
                 /* We change the text color. Many other CSS attributes can be changed,
                 such as background-color, the font weight, etc. */
-                color: red;
+                color: #D92061;
             }
 
         """
